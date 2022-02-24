@@ -12,8 +12,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var connectBtn: Button
     private lateinit var sendBtn: Button
-
     private val vm: MainViewModel by viewModels()
+    private var firstLaunch = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        vm.connectWebSocket()
+        if (!firstLaunch) vm.connectWebSocket()
+        firstLaunch = false
     }
 
     override fun onPause() {
