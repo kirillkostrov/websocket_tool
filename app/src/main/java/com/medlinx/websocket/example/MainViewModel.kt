@@ -1,6 +1,9 @@
 package com.medlinx.websocket.example
 
+import android.app.Application
 import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +18,8 @@ class MainViewModel : ViewModel() {
     val response = MutableLiveData("")
     val isConnected = MutableLiveData(false)
     val connectedButtonText = MutableLiveData("connected")
+
+    val errorMessage = MutableLiveData("")
 
     private lateinit var webSocketClient: WebSocketClient
 
@@ -66,6 +71,7 @@ class MainViewModel : ViewModel() {
             }
 
             override fun onError(ex: Exception?) {
+                errorMessage.postValue("Error: ${ex?.message}")
                 Log.e(TAG, "onError: ${ex?.message}")
             }
         }

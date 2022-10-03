@@ -3,9 +3,11 @@ package com.medlinx.websocket.example
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.medlinx.websocket.example.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -32,6 +34,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         sendBtn = findViewById(R.id.send_btn)
         connectBtn.setOnClickListener(this)
         sendBtn.setOnClickListener(this)
+
+        vm.errorMessage.observe(this, Observer {
+            Toast.makeText(this , it, Toast.LENGTH_LONG).show()
+        })
     }
 
     override fun onResume() {
